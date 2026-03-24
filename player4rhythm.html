@@ -76,6 +76,11 @@
     ];
 
     const audio = document.getElementById('audio');
+    audio.addEventListener('error', () => {
+  const err = audio.error;
+  console.log('Audio error:', err ? err.code : 'unknown');
+});
+
     const trackList = document.getElementById('track-list');
 
     let currentTrackIndex = 0;
