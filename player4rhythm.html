@@ -34,183 +34,234 @@
   </audio>
 
   <script>
-    // 1) DEFINE YOUR TRACKS HERE
-    // For now these are just placeholders; we’ll replace URLs later.
-    const tracks = [
-      {
-        id: 'VO1',
-        title: 'How To Perform This Activity: Part 1',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO1.mp3'
-      },
-      {
-        id: 'VO2',
-        title: 'How To Perform This Activity: Part 2',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO2.mp3'
-      },
-      {
-        id: 'track1',
-        title: 'Rhythm 1',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm1.mp3'
-      },
-      {
-        id: 'track2',
-        title: 'Rhythm 2',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm2.mp3'
-      },
-      {
-        id: 'track3',
-        title: 'Rhythm 3',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm3.mp3'
-      },
-      {
-        id: 'VO3',
-        title: 'How To Perform This Activity: Part 3',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO3.mp3'
-      },
-      {
-        id: 'track4',
-        title: 'Free Rhythm',
-        url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm0.mp3'
-      },
-      
-    ];
+  // 1) DEFINE YOUR TRACKS HERE
+  const tracks = [
+    {
+      id: 'VO1',
+      title: 'How To Perform This Activity: Part 1',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO1.mp3'
+    },
+    {
+      id: 'VO2',
+      title: 'How To Perform This Activity: Part 2',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO2.mp3'
+    },
+    {
+      id: 'track1',
+      title: 'Rhythm 1',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm1.mp3'
+    },
+    {
+      id: 'track2',
+      title: 'Rhythm 2',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm2.mp3'
+    },
+    {
+      id: 'track3',
+      title: 'Rhythm 3',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm3.mp3'
+    },
+    {
+      id: 'VO3',
+      title: 'How To Perform This Activity: Part 3',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO3.mp3'
+    },
+    {
+      id: 'track4',
+      title: 'Free Rhythm',
+      url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm0.mp3'
+    }
+  ];
 
-    const audio = document.getElementById('audio');
-    audio.addEventListener('error', () => {
-  const err = audio.error;
-  console.log('Audio error:', err ? err.code : 'unknown');
-});
+  const audio = document.getElementById('audio');
+  const trackList = document.getElementById('track-list');
 
-    const trackList = document.getElementById('track-list');
+  // Debug logger (you can remove later)
+  audio.addEventListener('error', () => {
+    const err = audio.error;
+    console.log('Audio error:', err ? err.code : 'unknown');
+  });
 
-    let currentTrackIndex = 0;
-    let progressMilestonesSent = new Set(); // e.g., 25, 50, 75
+  let currentTrackIndex = 0;
+  let progressMilestonesSent = new Set(); // e.g., 25, 50, 75
 
-    // 2) RENDER TRACK LIST
-    function renderTrackList() {
-      trackList.innerHTML = '';
-      tracks.forEach((track, index) => {
-        const li = document.createElement('li');
-        li.textContent = track.title;
-        if (index === currentTrackIndex) li.classList.add('current');
+  // NEW: listening tracking state
+  let lastReportedTime = 0;    // last second we sent to GA
+  let lastKnownTime = 0;       // latest currentTime we saw
 
-        const playBtn = document.createElement('button');
-        playBtn.textContent = 'Play';
-        playBtn.addEventListener('click', () => {
-          playTrack(index);
-        });
+  // 2) RENDER TRACK LIST
+  function renderTrackList() {
+    trackList.innerHTML = '';
+    tracks.forEach((track, index) => {
+      const li = document.createElement('li');
+      li.textContent = track.title;
+      if (index === currentTrackIndex) li.classList.add('current');
 
-        li.appendChild(playBtn);
-        trackList.appendChild(li);
+      const playBtn = document.createElement('button');
+      playBtn.textContent = 'Play';
+      playBtn.addEventListener('click', () => {
+        playTrack(index);
       });
-    }
 
-    function updateCurrentTrackHighlight() {
-      [...trackList.children].forEach((li, index) => {
-        li.classList.toggle('current', index === currentTrackIndex);
-      });
-    }
-
-    // 3) TRACKING HELPERS
-    function sendGAEvent(eventName, params) {
-      if (typeof gtag === 'function') {
-        gtag('event', eventName, params);
-      }
-    }
-
-    function sendTrackStartEvent(track) {
-      sendGAEvent('track_start', {
-        track_id: track.id,
-        track_name: track.title
-      });
-    }
-
-    function sendTrackProgressEvent(track, percent) {
-      sendGAEvent('track_progress', {
-        track_id: track.id,
-        track_name: track.title,
-        progress_percent: percent
-      });
-    }
-
-    function sendTrackCompleteEvent(track) {
-      sendGAEvent('track_complete', {
-        track_id: track.id,
-        track_name: track.title
-      });
-    }
-
-    // 4) AUDIO CONTROL + GA LOGIC
-    function playTrack(index) {
-  currentTrackIndex = index;
-  const track = tracks[currentTrackIndex];
-  progressMilestonesSent.clear();
-
-  audio.pause();
-  audio.currentTime = 0;
-
-  audio.src = track.url;
-  audio.load();
-
-  const onCanPlay = () => {
-    audio.removeEventListener('canplay', onCanPlay);
-    audio.play().catch(err => {
-      console.warn('Audio play error:', err);
+      li.appendChild(playBtn);
+      trackList.appendChild(li);
     });
-  };
-  audio.addEventListener('canplay', onCanPlay);
+  }
 
-  updateCurrentTrackHighlight();
-  sendTrackStartEvent(track);
-}
-
-
-    // On timeupdate, check progress % and send at 25, 50, 75
-    audio.addEventListener('timeupdate', () => {
-      if (!audio.duration || isNaN(audio.duration)) return;
-      const track = tracks[currentTrackIndex];
-      const percent = (audio.currentTime / audio.duration) * 100;
-
-      [25, 50, 75].forEach(milestone => {
-        if (percent >= milestone && !progressMilestonesSent.has(milestone)) {
-          progressMilestonesSent.add(milestone);
-          sendTrackProgressEvent(track, milestone);
-        }
-      });
+  function updateCurrentTrackHighlight() {
+    [...trackList.children].forEach((li, index) => {
+      li.classList.toggle('current', index === currentTrackIndex);
     });
+  }
 
-    // On ended, send complete and auto-advance (optional)
-    audio.addEventListener('ended', () => {
-      const track = tracks[currentTrackIndex];
-      sendTrackCompleteEvent(track);
-
-      // Optional: auto-play next track
-      if (currentTrackIndex < tracks.length - 1) {
-        playTrack(currentTrackIndex + 1);
-      }
-    });
-
-    // INITIALIZE
-    renderTrackList();
-    if (tracks.length > 0) {
-      audio.src = tracks[0].url;
-    }
-    // SPACEBAR KEYBOARD TOGGLE
-window.addEventListener('keydown', (event) => {
-  // Ignore if typing in an input/textarea
-  const tag = event.target.tagName.toLowerCase();
-  if (tag === 'input' || tag === 'textarea') return;
-
-  if (event.code === 'Space' || event.keyCode === 32) {
-    event.preventDefault(); // Stop page from scrolling / restarting
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
+  // 3) TRACKING HELPERS
+  function sendGAEvent(eventName, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params);
     }
   }
-});
 
-  </script>
+  function getCurrentTrack() {
+    return tracks[currentTrackIndex];
+  }
+
+  function sendTrackStartEvent(track) {
+    sendGAEvent('track_start', {
+      track_id: track.id,
+      track_name: track.title
+    });
+  }
+
+  // OLD: milestone-style progress (25/50/75) — keeping it
+  function sendTrackProgressMilestoneEvent(track, percent) {
+    sendGAEvent('track_progress_milestone', {
+      track_id: track.id,
+      track_name: track.title,
+      progress_percent: percent
+    });
+  }
+
+  function sendTrackCompleteEvent(track) {
+    sendGAEvent('track_complete', {
+      track_id: track.id,
+      track_name: track.title
+    });
+  }
+
+  // NEW: continuous progress (seconds + percent)
+  function sendTrackListeningProgress(duration, isEnded = false) {
+    const track = getCurrentTrack();
+    if (!track || !duration || isNaN(duration)) return;
+
+    const listenedSeconds = Math.round(lastKnownTime);
+    const percent = Math.max(
+      0,
+      Math.min(100, Math.round((listenedSeconds / duration) * 100))
+    );
+
+    sendGAEvent('track_progress', {
+      track_id: track.id,
+      track_name: track.title,
+      listened_seconds: listenedSeconds,
+      listened_percent: percent,
+      ended: isEnded
+    });
+
+    // Optional: explicit "complete" when finished
+    if (isEnded || percent >= 90) {
+      sendTrackCompleteEvent(track);
+    }
+  }
+
+  // 4) AUDIO CONTROL + GA LOGIC
+  function playTrack(index) {
+    currentTrackIndex = index;
+    const track = tracks[currentTrackIndex];
+    progressMilestonesSent.clear();
+    lastReportedTime = 0;
+    lastKnownTime = 0;
+
+    audio.pause();
+    audio.currentTime = 0;
+
+    audio.src = track.url;
+    audio.load();
+
+    const onCanPlay = () => {
+      audio.removeEventListener('canplay', onCanPlay);
+      audio.play().catch(err => {
+        console.warn('Audio play error:', err);
+      });
+    };
+    audio.addEventListener('canplay', onCanPlay);
+
+    updateCurrentTrackHighlight();
+    sendTrackStartEvent(track);
+  }
+
+  // On timeupdate, check progress
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration || isNaN(audio.duration)) return;
+
+    const track = tracks[currentTrackIndex];
+    const percent = (audio.currentTime / audio.duration) * 100;
+    lastKnownTime = audio.currentTime;
+
+    // 1) Milestones at 25/50/75 (existing behavior, renamed)
+    [25, 50, 75].forEach(milestone => {
+      if (percent >= milestone && !progressMilestonesSent.has(milestone)) {
+        progressMilestonesSent.add(milestone);
+        sendTrackProgressMilestoneEvent(track, milestone);
+      }
+    });
+
+    // 2) NEW: send listening progress every 5 seconds of play
+    if (audio.currentTime - lastReportedTime >= 5) {
+      lastReportedTime = audio.currentTime;
+      sendTrackListeningProgress(audio.duration, false);
+    }
+  });
+
+  // On pause, send a final progress snapshot for this listening segment
+  audio.addEventListener('pause', () => {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    lastKnownTime = audio.currentTime;
+    sendTrackListeningProgress(audio.duration, false);
+  });
+
+  // On ended, send complete progress (and auto-advance)
+  audio.addEventListener('ended', () => {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    lastKnownTime = audio.duration;
+    sendTrackListeningProgress(audio.duration, true);
+
+    // Optional: auto-play next track
+    if (currentTrackIndex < tracks.length - 1) {
+      playTrack(currentTrackIndex + 1);
+    }
+  });
+
+  // INITIALIZE
+  renderTrackList();
+  if (tracks.length > 0) {
+    audio.src = tracks[0].url;
+  }
+
+  // SPACEBAR KEYBOARD TOGGLE
+  window.addEventListener('keydown', (event) => {
+    const tag = event.target.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+
+    if (event.code === 'Space' || event.keyCode === 32) {
+      event.preventDefault();
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
