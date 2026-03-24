@@ -126,11 +126,13 @@
   }
 
   function sendTrackStartEvent(track) {
-    sendGAEvent('track_start', {
-      track_id: track.id,
-      track_name: track.title
-    });
-  }
+  console.log('DEBUG track_start fired for', track.id, track.title);  // temporary log
+  sendGAEvent('track_start', {
+    track_id: track.id,
+    track_name: track.title
+  });
+}
+
 
   // OLD: milestone-style progress (25/50/75) — keeping it
   function sendTrackProgressMilestoneEvent(track, percent) {
