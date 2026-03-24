@@ -116,10 +116,22 @@
 
   // 3) TRACKING HELPERS
   function sendGAEvent(eventName, params) {
-    if (typeof gtag === 'function') {
-      gtag('event', eventName, params);
-    }
+  // If we are inside an iframe, tell the parent instead
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage(
+      {
+        type: 'musc_track_event',
+        eventName,
+        params
+      },
+      '*' // you can tighten this later to your Sites origin
+    );
+  } else if (typeof gtag === 'function') {
+    // Standalone (direct GitHub URL): send straight to GA
+    gtag('event', eventName, params);
   }
+}
+
 
   function getCurrentTrack() {
     return tracks[currentTrackIndex];
