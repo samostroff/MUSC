@@ -106,18 +106,28 @@
 
     // 4) AUDIO CONTROL + GA LOGIC
     function playTrack(index) {
-      currentTrackIndex = index;
-      const track = tracks[currentTrackIndex];
-      progressMilestonesSent.clear();
+  currentTrackIndex = index;
+  const track = tracks[currentTrackIndex];
+  progressMilestonesSent.clear();
 
-      audio.src = track.url;
-      audio.play().catch(err => {
-        console.warn('Audio play error:', err);
-      });
+  audio.pause();
+  audio.currentTime = 0;
 
-      updateCurrentTrackHighlight();
-      sendTrackStartEvent(track);
-    }
+  audio.src = track.url;
+  audio.load();
+
+  const onCanPlay = () => {
+    audio.removeEventListener('canplay', onCanPlay);
+    audio.play().catch(err => {
+      console.warn('Audio play error:', err);
+    });
+  };
+  audio.addEventListener('canplay', onCanPlay);
+
+  updateCurrentTrackHighlight();
+  sendTrackStartEvent(track);
+}
+
 
     // On timeupdate, check progress % and send at 25, 50, 75
     audio.addEventListener('timeupdate', () => {
