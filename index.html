@@ -388,7 +388,11 @@
         updateCurrentTrackHighlight();
         sendTrackStartEvent(track);
       }
-
+      
+      audio.addEventListener('play', () => {
+        pauseOtherPlayers();
+      });
+      
       audio.addEventListener('timeupdate', () => {
         if (!audio.duration || isNaN(audio.duration)) return;
 
