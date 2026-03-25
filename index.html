@@ -140,6 +140,57 @@
     </iframe>
   </section>
 
+  <!-- Rotates the sections by calendar week -->
+<script>
+  // Rotate sections 2–4 once per calendar week
+  (function rotateSectionsByWeek() {
+    const container = document.body; // we’ll manipulate the sections within the body
+    const sectionIds = ['player2', 'player3', 'player4'];
+
+    // All 6 permutations of [2,3,4]
+    const permutations = [
+      ['player2', 'player3', 'player4'],
+      ['player2', 'player4', 'player3'],
+      ['player3', 'player2', 'player4'],
+      ['player3', 'player4', 'player2'],
+      ['player4', 'player2', 'player3'],
+      ['player4', 'player3', 'player2']
+    ];
+
+    // Baseline date for week 0 (set to the Monday of your first study week if you want)
+    const baseline = new Date('2025-01-01T00:00:00Z');
+    const now = new Date();
+    const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+    const weeksSince = Math.floor((now - baseline) / msPerWeek);
+
+    // Pick which permutation to use this week
+    const permIndex = ((weeksSince % permutations.length) + permutations.length) % permutations.length;
+    const orderThisWeek = permutations[permIndex];
+
+    // Get the actual section elements
+    const sections = {};
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sections[id] = el;
+    });
+
+    // Insert them back into the DOM in the chosen order,
+    // always keeping player1 at the top, before any of these.
+    const player1 = document.getElementById('player1');
+    if (!player1) return;
+
+    let insertAfter = player1;
+    orderThisWeek.forEach(id => {
+      const section = sections[id];
+      if (section && section !== insertAfter.nextSibling) {
+        container.insertBefore(section, insertAfter.nextSibling);
+        insertAfter = section;
+      }
+    });
+  })();
+</script>
+
+  
   <script>
     // ===== Shared GA helper: direct GA4 events from this page =====
     function sendGAEvent(eventName, params) {
