@@ -65,27 +65,27 @@
     </div>
   </section>
 
-  <!-- ============ Table of Contents ============== -->
+  <!-- ============ TABLE OF CONTENTS / JUMP TO A SECTION ============== -->
     <p><strong>Jump to a section:</strong></p>
-  <ul>
+  <ul id="jump-links">
     <li><a href="#player2">Natural Soundscapes</a></li>
     <li><a href="#player3">Soothing Music</a></li>
     <li><a href="#player4">Rhythm Activities</a></li>
   </ul>
-
+  
   <!-- Divider to keep Players 2-4 grouped -->
   <div id="rotating-sections">
-  <!-- ==================== PLAYER 2: NATURAL SOUNDSCAPES ==================== -->
+  <!--  PLAYER 2: NATURAL SOUNDSCAPES  -->
   <section id="player2" class="player-section">
     ...
   </section>
 
-  <!-- ==================== PLAYER 3: SOOTHING MUSIC ==================== -->
+  <!--  PLAYER 3: SOOTHING MUSIC  -->
   <section id="player3" class="player-section">
     ...
   </section>
 
-  <!-- ==================== PLAYER 4: RHYTHM ACTIVITIES ==================== -->
+  <!--  PLAYER 4: RHYTHM ACTIVITIES  -->
   <section id="player4" class="player-section">
     ...
   </section>
@@ -158,7 +158,7 @@
     </iframe>
   </section>
 
-  <!-- Rotates the sections by calendar week -->
+  <!-- ======= Rotates the sections by calendar week ======= -->
 <script>
   // Rotate sections 2–4 once per calendar week
   (function rotateSectionsByWeek() {
@@ -184,6 +184,23 @@
     // Pick which permutation to use this week
     const permIndex = ((weeksSince % permutations.length) + permutations.length) % permutations.length;
     const orderThisWeek = permutations[permIndex];
+    
+    // Reorder the "Jump to" links to match this week's order
+    const jumpList = document.getElementById('jump-links');
+    if (jumpList) {
+      const linkMap = {
+        'player2': jumpList.querySelector('a[href="#player2"]')?.parentElement,
+        'player3': jumpList.querySelector('a[href="#player3"]')?.parentElement,
+        'player4': jumpList.querySelector('a[href="#player4"]')?.parentElement
+      };
+
+      orderThisWeek.forEach(id => {
+        const li = linkMap[id];
+        if (li) {
+          jumpList.appendChild(li); // move items into new order
+        }
+      });
+    }
 
     // Get the actual section elements
     const sections = {};
