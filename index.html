@@ -257,11 +257,15 @@
     ];
 
     // ===== Implementation for each player (full tracking on all) =====
+      // Keep track of all audio elements so we can pause others
+    const allPlayerAudios = [];
+
     players.forEach(setupPlayer);
 
     function setupPlayer(player) {
       const audio = document.getElementById(player.audioElementId);
       const trackList = document.getElementById(player.listElementId);
+      allPlayerAudios.push(audio);
 
       let currentTrackIndex = 0;
       let progressMilestonesSent = new Set();
@@ -349,12 +353,23 @@
         }
       }
 
+      function pauseOtherPlayers() {
+        allPlayerAudios.forEach(a => {
+          if (a !== audio && !a.paused) {
+            a.pause();
+          }
+        });
+      }
+
       function playTrack(index) {
         currentTrackIndex = index;
         const track = getCurrentTrack();
         progressMilestonesSent.clear();
         lastReportedTime = 0;
         lastKnownTime = 0;
+
+        // Pause any other playing audio on the page
+        pauseOtherPlayers();
 
         audio.pause();
         audio.currentTime = 0;
@@ -415,6 +430,7 @@
         audio.src = player.tracks[0].url;
       }
     }
+
 
     // SPACEBAR TOGGLE – controls whichever audio is focused (or first as fallback)
     window.addEventListener('keydown', (event) => {
