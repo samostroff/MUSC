@@ -1,8 +1,29 @@
-function sendGAEvent(eventName, params) {
-  if (typeof gtag === 'function') {
-    gtag('event', eventName, params);
-    console.log('GA Event sent:', eventName, params);
-  } else {
-    console.warn('gtag not available');
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSC Audio Player</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        function retrySendGAEvent(eventName, eventParams) {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', eventName, eventParams);
+            } else {
+                setTimeout(function() {
+                    retrySendGAEvent(eventName, eventParams);
+                }, 500);
+            }
+        }
+
+        // The new sendGAEvent function
+        function sendGAEvent(eventName, eventParams) {
+            retrySendGAEvent(eventName, eventParams);
+        }
+    </script>
+</head>
+<body>
+    <h1>MUSC Audio Player</h1>
+    <!-- Additional content and scripts here -->
+</body>
+</html>
