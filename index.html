@@ -63,16 +63,9 @@
         Your browser does not support the audio element.
       </audio>
     </div>
-
-    <!-- Optional: Google Form embed for Player 1 -->
-    <!--
-    <iframe src="YOUR_GOOGLE_FORM_URL_FOR_PLAYER1"
-            width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0">
-      Loading…
-    </iframe>
-    -->
   </section>
 
+  <!-- ============ Table of Contents ============== -->
     <p><strong>Jump to a section:</strong></p>
   <ul>
     <li><a href="#player2">Natural Soundscapes</a></li>
@@ -80,6 +73,24 @@
     <li><a href="#player4">Rhythm Activities</a></li>
   </ul>
 
+  <!-- Divider to keep Players 2-4 grouped -->
+  <div id="rotating-sections">
+  <!-- ==================== PLAYER 2: NATURAL SOUNDSCAPES ==================== -->
+  <section id="player2" class="player-section">
+    ...
+  </section>
+
+  <!-- ==================== PLAYER 3: SOOTHING MUSIC ==================== -->
+  <section id="player3" class="player-section">
+    ...
+  </section>
+
+  <!-- ==================== PLAYER 4: RHYTHM ACTIVITIES ==================== -->
+  <section id="player4" class="player-section">
+    ...
+  </section>
+</div>
+  
   <!-- ==================== PLAYER 2: NATURAL SOUNDSCAPES ==================== -->
   <section id="player2" class="player-section">
     <h2>Natural Soundscapes</h2>
@@ -151,7 +162,7 @@
 <script>
   // Rotate sections 2–4 once per calendar week
   (function rotateSectionsByWeek() {
-    const container = document.body; // we’ll manipulate the sections within the body
+    const container = document.getElementById('rotating-sections'); // we’ll manipulate the sections within the body
     const sectionIds = ['player2', 'player3', 'player4'];
 
     // All 6 permutations of [2,3,4]
