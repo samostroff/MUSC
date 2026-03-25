@@ -30,12 +30,17 @@
     .player-section { margin-bottom: 3rem; border-top: 1px solid #ccc; padding-top: 1.5rem; }
     .audio-row { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; margin-bottom: 2rem; }
     .track-list { margin-bottom: 0.5rem; }
-    #header-image { display: block; width: 100%; height: auto; margin: 0 0 1.5rem 0; }
+    #header-banner { display: block; width: 100%; height: 120px; overflow: hidden; margin: 0 0 1.5rem 0; }
+
+    #header-banner img { width: 100%; height: auto; display: block; object-fit: cover; }
 
   </style>
 </head>
 <body>
-  <img id="header-image" src="images/header_image.jpg" alt="MUSC Sensory Room header">
+  <div id="header-banner">
+  <img src="images/header_image.jpg" alt="MUSC Sensory Room header">
+</div>
+
 
   <h1>MUSC Sensory Room: Sonic Interventions</h1>
 
