@@ -46,12 +46,31 @@
 
   <p>
     <!-- Put your intro / explainer text for the whole experience here. -->
-    The MUSC Sensory Room offers a selection of sound-based experiences for your child. Based on your child's preferences, you can choose from immersive nature sounds, soothing music, or a series of interactive rhythm activities.
-  <p>
+    The MUSC Sensory Room offers a selection of sound-based experiences for your child. Based on your child's preferences, you can choose to engage in nature sounds, soothing music, or a series of interactive rhythm activities.
+  </p>
 
   <p>
     For the purposes of our study, please refresh the page before continuing. 
   </p>
+
+  <!-- ===== PROMPT FOR STUDY CODE ===== --> 
+  <div class="study-code">
+    <label for="studyCodeInput">
+      Study code:
+      <span style="font-weight: normal;">
+        (Please enter the code given by the researcher)
+      </span>
+    </label>
+    <input
+      type="text"
+      id="studyCodeInput"
+      name="studyCode"
+      placeholder="e.g., P012"
+    />
+    <button id="saveStudyCodeButton" type="button">
+      Save study code
+    </button>
+  </div>
 
   <!-- ==================== PLAYER 1: SETUP ==================== -->
   <section id="player1" class="player-section">
@@ -149,6 +168,7 @@
   </div>
 
   
+  
   <!-- ======= ROTATE SECTIONS BY CALENDAR WEEK ======= -->
 <script>
   // Rotate sections 2–4 once per calendar week
@@ -218,336 +238,353 @@
   })();
 </script>
 
-  
-  <script>
-    // ===== Shared GA helper: direct GA4 events from this page =====
-    function sendGAEvent(eventName, params) {
-      if (typeof gtag === 'function') {
-        gtag('event', eventName, params);
-      }
-    }
+<script>
+  // ===== STORE USER INPUT FOR STUDY CODE =====
+  let studyCode = null;
 
-    // ===== Player configuration data (URLs copied exactly from your code) =====
-    const players = [
-      {
-        id: 1,
-        title: 'Setup',
-        audioElementId: 'audio-1',
-        listElementId: 'track-list-1',
-        tracks: [
-          {
-            id: 'p1_track1',
-            title: 'Speaker Setup',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO_Intro.mp3'
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: 'Natural Soundscapes',
-        audioElementId: 'audio-2',
-        listElementId: 'track-list-2',
-        tracks: [
-          {
-            id: 'p2_track1',
-            title: 'Nature Sound 1: Forest Lake',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature9.mp3'
-          },
-          {
-            id: 'p2_track2',
-            title: 'Nature Sound 2: Songbird Chirping, Crickets',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature5.mp3'
-          },
-          {
-            id: 'p2_track3',
-            title: 'Nature Sound 3: Wind Through Trees',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature14.mp3'
-          },
-          {
-            id: 'p2_track4',
-            title: 'Nature Sound 4: Mourning Dove',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature6.mp3'
-          }
-        ]
-      },
-      {
-        id: 3,
-        title: 'Soothing Music',
-        audioElementId: 'audio-3',
-        listElementId: 'track-list-3',
-        tracks: [
-          {
-            id: 'p3_track1',
-            title: 'Track 1: Piano Waves',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Piano6.mp3'
-          },
-          {
-            id: 'p3_track2',
-            title: 'Track 2: Guitar Exploration',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Piano_Guitar.mp3'
-          },
-          {
-            id: 'p3_track3',
-            title: 'Track 3: Piano Stasis',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Piano13.mp3'
-          },
-          {
-            id: 'p3_track4',
-            title: 'Track 4: Marimba Song',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Marimba_alt.mp3'
-          }
-        ]
-      },
-      {
-        id: 4,
-        title: 'Rhythm Activities',
-        audioElementId: 'audio-4',
-        listElementId: 'track-list-4',
-        tracks: [
-          {
-            id: 'p4_vo1',
-            title: 'How To Perform This Activity: Part 1',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO1.mp3'
-          },
-          {
-            id: 'p4_vo2',
-            title: 'How To Perform This Activity: Part 2',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO2.mp3'
-          },
-          {
-            id: 'p4_track1',
-            title: 'Rhythm Activity: Level 1 (Bells)',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm1.mp3'
-          },
-          {
-            id: 'p4_track2',
-            title: 'Rhythm Activity: Level 2 (Marimba)',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm2.mp3'
-          },
-          {
-            id: 'p4_track3',
-            title: 'Rhythm Activity: Level 3 (Slowing Down)',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm3.mp3'
-          },
-          {
-            id: 'p4_vo3',
-            title: 'How To Perform This Activity: Part 3',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO3.mp3'
-          },
-          {
-            id: 'p4_track4',
-            title: 'Rhythm Activity: Level 0 (Free Play)',
-            url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm0.mp3'
-          }
-        ]
-      }
-    ];
+  const studyCodeInput = document.getElementById('studyCodeInput');
+  const saveStudyCodeButton = document.getElementById('saveStudyCodeButton');
 
-    // ===== Implementation for each player (full tracking on all) =====
-      // Keep track of all audio elements so we can pause others
-    const allPlayerAudios = [];
-
-    players.forEach(setupPlayer);
-
-    function setupPlayer(player) {
-      const audio = document.getElementById(player.audioElementId);
-      const trackList = document.getElementById(player.listElementId);
-      allPlayerAudios.push(audio);
-
-      let currentTrackIndex = 0;
-      let progressMilestonesSent = new Set();
-      let lastReportedTime = 0;
-      let lastKnownTime = 0;
-
-      function renderTrackList() {
-        trackList.innerHTML = '';
-        player.tracks.forEach((track, index) => {
-          const li = document.createElement('li');
-          li.textContent = track.title;
-          if (index === currentTrackIndex) li.classList.add('current');
-
-          const playBtn = document.createElement('button');
-          playBtn.textContent = 'Play';
-          playBtn.addEventListener('click', () => {
-            playTrack(index);
-          });
-
-          li.appendChild(playBtn);
-          trackList.appendChild(li);
-        });
-      }
-
-      function updateCurrentTrackHighlight() {
-        [...trackList.children].forEach((li, index) => {
-          li.classList.toggle('current', index === currentTrackIndex);
-        });
-      }
-
-      function getCurrentTrack() {
-        return player.tracks[currentTrackIndex];
-      }
-
-      function sendTrackStartEvent(track) {
-        sendGAEvent('track_start', {
-          track_id: track.id,
-          track_name: track.title,
-          player_id: player.id,
-          player_title: player.title
-        });
-      }
-
-      function sendTrackProgressEvent(track, percent) {
-        sendGAEvent('track_progress', {
-          track_id: track.id,
-          track_name: track.title,
-          player_id: player.id,
-          player_title: player.title,
-          progress_percent: percent
-        });
-      }
-
-      function sendTrackCompleteEvent(track) {
-        sendGAEvent('track_complete', {
-          track_id: track.id,
-          track_name: track.title,
-          player_id: player.id,
-          player_title: player.title
-        });
-      }
-
-      function sendTrackListeningProgress(duration, isEnded = false) {
-        const track = getCurrentTrack();
-        if (!track || !duration || isNaN(duration)) return;
-
-        const listenedSeconds = Math.round(lastKnownTime);
-        const percent = Math.max(
-          0,
-          Math.min(100, Math.round((listenedSeconds / duration) * 100))
-        );
-
-        sendGAEvent('track_progress_detail', {
-          track_id: track.id,
-          track_name: track.title,
-          player_id: player.id,
-          player_title: player.title,
-          listened_seconds: listenedSeconds,
-          listened_percent: percent,
-          ended: isEnded
-        });
-
-        if (isEnded || percent >= 90) {
-          sendTrackCompleteEvent(track);
-        }
-      }
-
-      function pauseOtherPlayers() {
-        allPlayerAudios.forEach(a => {
-          if (a !== audio && !a.paused) {
-            a.pause();
-          }
-        });
-      }
-
-      function playTrack(index) {
-        currentTrackIndex = index;
-        const track = getCurrentTrack();
-        progressMilestonesSent.clear();
-        lastReportedTime = 0;
-        lastKnownTime = 0;
-
-        // Pause any other playing audio on the page
-        pauseOtherPlayers();
-
-        audio.pause();
-        audio.currentTime = 0;
-
-        audio.src = track.url;
-        audio.load();
-
-        const onCanPlay = () => {
-          audio.removeEventListener('canplay', onCanPlay);
-          audio.play().catch(err => {
-            console.warn('Audio play error:', err);
-          });
-        };
-        audio.addEventListener('canplay', onCanPlay);
-
-        updateCurrentTrackHighlight();
-        sendTrackStartEvent(track);
-      }
-      
-      audio.addEventListener('play', () => {
-        pauseOtherPlayers();
-      });
-      
-      audio.addEventListener('timeupdate', () => {
-        if (!audio.duration || isNaN(audio.duration)) return;
-
-        const track = getCurrentTrack();
-        const percent = (audio.currentTime / audio.duration) * 100;
-        lastKnownTime = audio.currentTime;
-
-        [25, 50, 75].forEach(milestone => {
-          if (percent >= milestone && !progressMilestonesSent.has(milestone)) {
-            progressMilestonesSent.add(milestone);
-            sendTrackProgressEvent(track, milestone);
-          }
-        });
-
-        if (audio.currentTime - lastReportedTime >= 5) {
-          lastReportedTime = audio.currentTime;
-          sendTrackListeningProgress(audio.duration, false);
-        }
-      });
-
-      audio.addEventListener('pause', () => {
-        if (!audio.duration || isNaN(audio.duration)) return;
-        lastKnownTime = audio.currentTime;
-        sendTrackListeningProgress(audio.duration, false);
-      });
-
-      audio.addEventListener('ended', () => {
-        if (!audio.duration || isNaN(audio.duration)) return;
-        lastKnownTime = audio.duration;
-        sendTrackListeningProgress(audio.duration, true);
-
-        if (currentTrackIndex < player.tracks.length - 1) {
-          playTrack(currentTrackIndex + 1);
-        }
-      });
-
-      renderTrackList();
-      if (player.tracks.length > 0) {
-        audio.src = player.tracks[0].url;
-      }
-    }
-
-
-    // SPACEBAR TOGGLE – controls whichever audio is focused (or first as fallback)
-    window.addEventListener('keydown', (event) => {
-      const tag = event.target.tagName.toLowerCase();
-      if (tag === 'input' || tag === 'textarea') return;
-
-      if (event.code === 'Space' || event.keyCode === 32) {
-        event.preventDefault();
-        const active = document.activeElement;
-        let audio = null;
-
-        if (active && active.tagName.toLowerCase() === 'audio') {
-          audio = active;
-        } else {
-          audio = document.querySelector('audio');
-        }
-
-        if (audio) {
-          if (audio.paused) {
-            audio.play();
-          } else {
-            audio.pause();
-          }
-        }
+  if (saveStudyCodeButton && studyCodeInput) {
+    saveStudyCodeButton.addEventListener('click', () => {
+      const value = studyCodeInput.value.trim();
+      if (value) {
+        studyCode = value;
+        alert('Study code saved: ' + studyCode);
+      } else {
+        alert('Please enter a study code before continuing.');
       }
     });
-  </script>
+  }
+
+  // ===== Shared GA helper: direct GA4 events from this page =====
+  function sendGAEvent(eventName, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, Object.assign({}, params, {
+        study_code: studyCode || '(none)'
+      }));
+    }
+  }
+
+  // ===== Player configuration data =====
+  const players = [
+    {
+      id: 1,
+      title: 'Setup',
+      audioElementId: 'audio-1',
+      listElementId: 'track-list-1',
+      tracks: [
+        {
+          id: 'p1_track1',
+          title: 'Speaker Setup',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO_Intro.mp3'
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: 'Natural Soundscapes',
+      audioElementId: 'audio-2',
+      listElementId: 'track-list-2',
+      tracks: [
+        {
+          id: 'p2_track1',
+          title: 'Nature Sound 1: Forest Lake',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature9.mp3'
+        },
+        {
+          id: 'p2_track2',
+          title: 'Nature Sound 2: Songbird Chirping, Crickets',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature5.mp3'
+        },
+        {
+          id: 'p2_track3',
+          title: 'Nature Sound 3: Wind Through Trees',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature14.mp3'
+        },
+        {
+          id: 'p2_track4',
+          title: 'Nature Sound 4: Mourning Dove',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Nature6.mp3'
+        }
+      ]
+    },
+    {
+      id: 3,
+      title: 'Soothing Music',
+      audioElementId: 'audio-3',
+      listElementId: 'track-list-3',
+      tracks: [
+        {
+          id: 'p3_track1',
+          title: 'Track 1: Piano Waves',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Piano6.mp3'
+        },
+        {
+          id: 'p3_track2',
+          title: 'Track 2: Guitar Exploration',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Piano_Guitar.mp3'
+        },
+        {
+          id: 'p3_track3',
+          title: 'Track 3: Piano Stasis',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Piano13.mp3'
+        },
+        {
+          id: 'p3_track4',
+          title: 'Track 4: Marimba Song',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Marimba_alt.mp3'
+        }
+      ]
+    },
+    {
+      id: 4,
+      title: 'Rhythm Activities',
+      audioElementId: 'audio-4',
+      listElementId: 'track-list-4',
+      tracks: [
+        {
+          id: 'p4_vo1',
+          title: 'How To Perform This Activity: Part 1',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO1.mp3'
+        },
+        {
+          id: 'p4_vo2',
+          title: 'How To Perform This Activity: Part 2',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO2.mp3'
+        },
+        {
+          id: 'p4_track1',
+          title: 'Rhythm Activity: Level 1 (Bells)',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm1.mp3'
+        },
+        {
+          id: 'p4_track2',
+          title: 'Rhythm Activity: Level 2 (Marimba)',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm2.mp3'
+        },
+        {
+          id: 'p4_track3',
+          title: 'Rhythm Activity: Level 3 (Slowing Down)',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm3.mp3'
+        },
+        {
+          id: 'p4_vo3',
+          title: 'How To Perform This Activity: Part 3',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/VO3.mp3'
+        },
+        {
+          id: 'p4_track4',
+          title: 'Rhythm Activity: Level 0 (Free Play)',
+          url: 'https://samostroff.github.io/MUSC-Audio-Player/audio/Rhythm0.mp3'
+        }
+      ]
+    }
+  ];
+
+  // ===== Implementation for each player (full tracking on all) =====
+  const allPlayerAudios = [];
+
+  players.forEach(setupPlayer);
+
+  function setupPlayer(player) {
+    const audio = document.getElementById(player.audioElementId);
+    const trackList = document.getElementById(player.listElementId);
+    allPlayerAudios.push(audio);
+
+    let currentTrackIndex = 0;
+    let progressMilestonesSent = new Set();
+    let lastReportedTime = 0;
+    let lastKnownTime = 0;
+
+    function renderTrackList() {
+      trackList.innerHTML = '';
+      player.tracks.forEach((track, index) => {
+        const li = document.createElement('li');
+        li.textContent = track.title;
+        if (index === currentTrackIndex) li.classList.add('current');
+
+        const playBtn = document.createElement('button');
+        playBtn.textContent = 'Play';
+        playBtn.addEventListener('click', () => {
+          playTrack(index);
+        });
+
+        li.appendChild(playBtn);
+        trackList.appendChild(li);
+      });
+    }
+
+    function updateCurrentTrackHighlight() {
+      Array.prototype.forEach.call(trackList.children, (li, index) => {
+        li.classList.toggle('current', index === currentTrackIndex);
+      });
+    }
+
+    function getCurrentTrack() {
+      return player.tracks[currentTrackIndex];
+    }
+
+    function sendTrackStartEvent(track) {
+      sendGAEvent('track_start', {
+        track_id: track.id,
+        track_name: track.title,
+        player_id: player.id,
+        player_title: player.title
+      });
+    }
+
+    function sendTrackProgressEvent(track, percent) {
+      sendGAEvent('track_progress', {
+        track_id: track.id,
+        track_name: track.title,
+        player_id: player.id,
+        player_title: player.title,
+        progress_percent: percent
+      });
+    }
+
+    function sendTrackCompleteEvent(track) {
+      sendGAEvent('track_complete', {
+        track_id: track.id,
+        track_name: track.title,
+        player_id: player.id,
+        player_title: player.title
+      });
+    }
+
+    function sendTrackListeningProgress(duration, isEnded) {
+      const track = getCurrentTrack();
+      if (!track || !duration || isNaN(duration)) return;
+
+      const listenedSeconds = Math.round(lastKnownTime);
+      const percent = Math.max(
+        0,
+        Math.min(100, Math.round((listenedSeconds / duration) * 100))
+      );
+
+      sendGAEvent('track_progress_detail', {
+        track_id: track.id,
+        track_name: track.title,
+        player_id: player.id,
+        player_title: player.title,
+        listened_seconds: listenedSeconds,
+        listened_percent: percent,
+        ended: !!isEnded
+      });
+
+      if (isEnded || percent >= 90) {
+        sendTrackCompleteEvent(track);
+      }
+    }
+
+    function pauseOtherPlayers() {
+      allPlayerAudios.forEach(a => {
+        if (a !== audio && a && !a.paused) {
+          a.pause();
+        }
+      });
+    }
+
+    function playTrack(index) {
+      currentTrackIndex = index;
+      const track = getCurrentTrack();
+      progressMilestonesSent.clear();
+      lastReportedTime = 0;
+      lastKnownTime = 0;
+
+      pauseOtherPlayers();
+
+      audio.pause();
+      audio.currentTime = 0;
+
+      audio.src = track.url;
+      audio.load();
+
+      const onCanPlay = () => {
+        audio.removeEventListener('canplay', onCanPlay);
+        audio.play().catch(err => {
+          console.warn('Audio play error:', err);
+        });
+      };
+      audio.addEventListener('canplay', onCanPlay);
+
+      updateCurrentTrackHighlight();
+      sendTrackStartEvent(track);
+    }
+
+    audio.addEventListener('play', () => {
+      pauseOtherPlayers();
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration || isNaN(audio.duration)) return;
+
+      const track = getCurrentTrack();
+      const percent = (audio.currentTime / audio.duration) * 100;
+      lastKnownTime = audio.currentTime;
+
+      [25, 50, 75].forEach(milestone => {
+        if (percent >= milestone && !progressMilestonesSent.has(milestone)) {
+          progressMilestonesSent.add(milestone);
+          sendTrackProgressEvent(track, milestone);
+        }
+      });
+
+      if (audio.currentTime - lastReportedTime >= 5) {
+        lastReportedTime = audio.currentTime;
+        sendTrackListeningProgress(audio.duration, false);
+      }
+    });
+
+    audio.addEventListener('pause', () => {
+      if (!audio.duration || isNaN(audio.duration)) return;
+      lastKnownTime = audio.currentTime;
+      sendTrackListeningProgress(audio.duration, false);
+    });
+
+    audio.addEventListener('ended', () => {
+      if (!audio.duration || isNaN(audio.duration)) return;
+      lastKnownTime = audio.duration;
+      sendTrackListeningProgress(audio.duration, true);
+
+      if (currentTrackIndex < player.tracks.length - 1) {
+        playTrack(currentTrackIndex + 1);
+      }
+    });
+
+    renderTrackList();
+    if (player.tracks.length > 0) {
+      audio.src = player.tracks[0].url;
+    }
+  }
+
+  // SPACEBAR TOGGLE – controls whichever audio is focused (or first as fallback)
+  window.addEventListener('keydown', (event) => {
+    const tag = event.target.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+
+    if (event.code === 'Space' || event.keyCode === 32) {
+      event.preventDefault();
+      const active = document.activeElement;
+      let audio = null;
+
+      if (active && active.tagName.toLowerCase() === 'audio') {
+        audio = active;
+      } else {
+        audio = document.querySelector('audio');
+      }
+
+      if (audio) {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
