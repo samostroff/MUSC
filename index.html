@@ -31,9 +31,9 @@
     .audio-row { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; margin-bottom: 2rem; }
     .track-list { margin-bottom: 0.5rem; }
     #header-banner { display: block; width: 100%; height: 120px; overflow: hidden; margin: 0 0 1.5rem 0; }
-
     #header-banner img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 60%; }
     a,a:visited { color: #0066cc; text-decoration: underline; }
+    .instrument-image {display: block; max-width: 100%; height: auto; margin: 1rem 0; }
   </style>
 </head>
 <body>
@@ -121,6 +121,18 @@
     <!-- ==================== PLAYER 3: SOOTHING MUSIC ==================== -->
     <section id="player3" class="player-section">
       <h2>Soothing Music</h2>
+      
+      <!-- Piano image near piano tracks -->
+    <img src="images/piano.jpg"
+         alt="Piano used in soothing music tracks"
+         class="instrument-image">
+        <div class="audio-row">
+          <ul id="track-list-2" class="track-list"></ul>
+          <audio id="audio-2" controls style="width: 100%;">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      
       <p>
         <!-- Explainer text specific to Player 3 goes here. -->
         These soothing music tracks were composed  by professional musicians specifically for listeners on the autism spectrum.
