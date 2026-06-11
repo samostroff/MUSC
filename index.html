@@ -369,6 +369,7 @@
       let progressMilestonesSent = new Set();
       let lastReportedTime = 0;
       let lastKnownTime = 0;
+      let trackCompleted = false;
 
       function renderTrackList() {
         trackList.innerHTML = '';
@@ -446,7 +447,8 @@
           ended: isEnded
         });
 
-        if (isEnded || percent >= 90) {
+        if ((isEnded || percent >= 90) && !trackCompleted) {
+          trackCompleted = true;
           sendTrackCompleteEvent(track);
         }
       }
@@ -465,6 +467,7 @@
         progressMilestonesSent.clear();
         lastReportedTime = 0;
         lastKnownTime = 0;
+        trackCompleted = false;
 
         pauseOtherPlayers();
 
