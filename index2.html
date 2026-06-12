@@ -57,7 +57,7 @@
   </p>
 
   <p>
-    For the purposes of our study, please refresh the page before continuing.
+    For the purposes of our study, please refresh the page before continuing. 
   </p>
 
   <!-- ==================== PLAYER 1: SETUP ==================== -->
@@ -83,10 +83,10 @@
     <li><a href="#player3">Soothing Music</a></li>
     <li><a href="#player4">Rhythm Activities</a></li>
   </ul>
-
+  
   <!-- Divider to keep Players 2-4 grouped -->
   <div id="rotating-sections">
-
+    
     <!-- ==================== PLAYER 2: NATURAL SOUNDSCAPES ==================== -->
     <section id="player2" class="player-section">
       <h2>Natural Soundscapes</h2>
@@ -100,21 +100,21 @@
         <!-- Explainer text specific to Player 2 goes here. -->
         These recordings of natural soundscapes include running water, birdsong, and forest ambiences.
       </p>
-
+  
       <div class="audio-row">
         <ul id="track-list-2" class="track-list"></ul>
         <audio id="audio-2" controls style="width: 100%;">
           Your browser does not support the audio element.
         </audio>
       </div>
-
+  
       <!-- Optional: Google Form embed for Player 2 -->
       <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeckoUJuqzqd4FMARBviXKVZTmVBYbxlWePCtvTMFyqMJG5mw/viewform?usp=header"
               width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">
         Loading…
       </iframe> -->
     </section>
-
+  
     <!-- ==================== PLAYER 3: SOOTHING MUSIC ==================== -->
     <section id="player3" class="player-section">
       <h2>Soothing Music</h2>
@@ -128,21 +128,21 @@
         <!-- Explainer text specific to Player 3 goes here. -->
         These soothing music tracks were composed  by professional musicians specifically for listeners on the autism spectrum.
       </p>
-
+  
       <div class="audio-row">
         <ul id="track-list-3" class="track-list"></ul>
         <audio id="audio-3" controls style="width: 100%;">
           Your browser does not support the audio element.
         </audio>
       </div>
-
+  
       <!-- Optional: Google Form embed for Player 3 -->
       <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe_nDMUMav_dNYnbnqqAMe5M2SGDIQQ_fxtEDqVOE_XT5u58w/viewform?usp=header"
               width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">
         Loading…
       </iframe> -->
     </section>
-
+  
     <!-- ==================== PLAYER 4: RHYTHM ACTIVITIES ==================== -->
     <section id="player4" class="player-section">
       <h2>Rhythm Activities</h2>
@@ -156,14 +156,14 @@
         <!-- Explainer text specific to Player 4 goes here. -->
         These rhythm activities were created by professional musicians and medical doctors for use by people on the autism spectrum. Please follow along using your hands or the provided instrument(s).
       </p>
-
+  
       <div class="audio-row">
         <ul id="track-list-4" class="track-list"></ul>
         <audio id="audio-4" controls style="width: 100%;">
           Your browser does not support the audio element.
         </audio>
       </div>
-
+  
       <!-- Optional: Google Form embed for Player 4 -->
       <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSedzCz31yhqFoT2Wzcf5vqOz9QhFmnwGli6psdoTR973MfM3g/viewform?usp=header"
               width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">
@@ -195,7 +195,7 @@
 
       const permIndex = ((weeksSince % permutations.length) + permutations.length) % permutations.length;
       const orderThisWeek = permutations[permIndex];
-
+      
       const jumpList = document.getElementById('jump-links');
       if (jumpList) {
         const linkMap = {
@@ -215,7 +215,7 @@
         const el = document.getElementById(id);
         if (el) sections[id] = el;
       });
-
+      
       let insertAfter = null;
       orderThisWeek.forEach(id => {
         const section = sections[id];
@@ -369,7 +369,7 @@
       let progressMilestonesSent = new Set();
       let lastReportedTime = 0;
       let lastKnownTime = 0;
-      let trackCompleted = false; // guard so track_complete fires at most once per play
+      let trackCompleted = false;
 
       function renderTrackList() {
         trackList.innerHTML = '';
@@ -447,8 +447,6 @@
           ended: isEnded
         });
 
-        // Fire track_complete at most once per play (was previously firing
-        // from the 90% threshold, again on pause, and again on ended).
         if ((isEnded || percent >= 90) && !trackCompleted) {
           trackCompleted = true;
           sendTrackCompleteEvent(track);
@@ -469,7 +467,7 @@
         progressMilestonesSent.clear();
         lastReportedTime = 0;
         lastKnownTime = 0;
-        trackCompleted = false; // reset completion guard for the new play
+        trackCompleted = false;
 
         pauseOtherPlayers();
 
@@ -490,11 +488,11 @@
         updateCurrentTrackHighlight();
         sendTrackStartEvent(track);
       }
-
+      
       audio.addEventListener('play', () => {
         pauseOtherPlayers();
       });
-
+      
       audio.addEventListener('timeupdate', () => {
         if (!audio.duration || isNaN(audio.duration)) return;
 
@@ -564,8 +562,8 @@
     });
   </script>
   <p style="margin-top: 2rem; font-size: 0.9rem; color: #555;">
-    If you experience any technical difficulties with this site, or if something does not appear to be working as expected,
-    please contact Sam Ostroff at
+    If you experience any technical difficulties with this site, or if something does not appear to be working as expected, 
+    please contact Sam Ostroff at 
     <a href="mailto:samueljostroff@gmail.com">samueljostroff@gmail.com</a>.
   </p>
 </body>
