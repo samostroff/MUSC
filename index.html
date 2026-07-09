@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>MUSC Sensory Room: Sonic Interventions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SR0VG72M7B"></script>
   <script>
@@ -13,7 +12,6 @@
     gtag('js', new Date());
     gtag('config', 'G-SR0VG72M7B');
   </script>
-
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -33,7 +31,6 @@
     #header-banner { display: block; width: 100%; height: 120px; overflow: hidden; margin: 0 0 1.5rem 0; }
     #header-banner img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 60%; }
     a,a:visited { color: #0066cc; text-decoration: underline; }
-
     /* copied from index.html */
     .instrument-image {
       display: block;
@@ -48,18 +45,14 @@
   <div id="header-banner">
     <img src="images/header_image.jpg" alt="MUSC Sensory Room header">
   </div>
-
   <h1>MUSC Sensory Room: Sonic Interventions</h1>
-
   <p>
     <!-- Put your intro / explainer text for the whole experience here. -->
     The MUSC Sensory Room offers a selection of sound-based experiences for your child. Based on your child's preferences, you can choose from immersive nature sounds, soothing music, or a series of interactive rhythm activities.
   </p>
-
   <p>
-    For the purposes of our study, please refresh the page before continuing. 
+    For the purposes of our study, please refresh the page before continuing.
   </p>
-
   <!-- ==================== PLAYER 1: SETUP ==================== -->
   <section id="player1" class="player-section">
     <h2>Setup</h2>
@@ -67,7 +60,6 @@
       <!-- Explainer text specific to Player 1 goes here. -->
       Before beginning the activities, please set the speaker volume using the iPad. The voice should sound at conversation volume.
     </p>
-
     <div class="audio-row">
       <ul id="track-list-1" class="track-list"></ul>
       <audio id="audio-1" controls style="width: 100%;">
@@ -75,7 +67,6 @@
       </audio>
     </div>
   </section>
-
   <!-- ============ TABLE OF CONTENTS / JUMP TO A SECTION ============== -->
   <p><strong>Jump to a section:</strong></p>
   <ul id="jump-links">
@@ -83,87 +74,81 @@
     <li><a href="#player3">Soothing Music</a></li>
     <li><a href="#player4">Rhythm Activities</a></li>
   </ul>
-  
+
   <!-- Divider to keep Players 2-4 grouped -->
   <div id="rotating-sections">
-    
+
     <!-- ==================== PLAYER 2: NATURAL SOUNDSCAPES ==================== -->
     <section id="player2" class="player-section">
       <h2>Natural Soundscapes</h2>
-
       <!-- new section header image -->
       <img src="images/naturesounds.png"
            alt="Illustration of natural soundscapes"
            class="instrument-image">
-
       <p>
         <!-- Explainer text specific to Player 2 goes here. -->
         These recordings of natural soundscapes include running water, birdsong, and forest ambiences.
       </p>
-  
+
       <div class="audio-row">
         <ul id="track-list-2" class="track-list"></ul>
         <audio id="audio-2" controls style="width: 100%;">
           Your browser does not support the audio element.
         </audio>
       </div>
-  
+
       <!-- Optional: Google Form embed for Player 2 -->
       <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeckoUJuqzqd4FMARBviXKVZTmVBYbxlWePCtvTMFyqMJG5mw/viewform?usp=header"
               width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">
         Loading…
       </iframe> -->
     </section>
-  
+
     <!-- ==================== PLAYER 3: SOOTHING MUSIC ==================== -->
     <section id="player3" class="player-section">
       <h2>Soothing Music</h2>
-
       <!-- new section header image -->
       <img src="images/soothingmusic.png"
            alt="Illustration representing soothing music"
            class="instrument-image">
-
       <p>
         <!-- Explainer text specific to Player 3 goes here. -->
         These soothing music tracks were composed  by professional musicians specifically for listeners on the autism spectrum.
       </p>
-  
+
       <div class="audio-row">
         <ul id="track-list-3" class="track-list"></ul>
         <audio id="audio-3" controls style="width: 100%;">
           Your browser does not support the audio element.
         </audio>
       </div>
-  
+
       <!-- Optional: Google Form embed for Player 3 -->
       <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe_nDMUMav_dNYnbnqqAMe5M2SGDIQQ_fxtEDqVOE_XT5u58w/viewform?usp=header"
               width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">
         Loading…
       </iframe> -->
     </section>
-  
+
     <!-- ==================== PLAYER 4: RHYTHM ACTIVITIES ==================== -->
     <section id="player4" class="player-section">
       <h2>Rhythm Activities</h2>
-
       <!-- new section header image -->
       <img src="images/rhythmactivities.png"
            alt="Illustration of rhythm activities and instruments"
            class="instrument-image">
-
       <p>
         <!-- Explainer text specific to Player 4 goes here. -->
         These rhythm activities were created by professional musicians and medical doctors for use by people on the autism spectrum. Please follow along using your hands or the provided instrument(s).
       </p>
-  
+
       <div class="audio-row">
         <ul id="track-list-4" class="track-list"></ul>
         <audio id="audio-4" controls style="width: 100%;">
           Your browser does not support the audio element.
         </audio>
       </div>
-  
+
       <!-- Optional: Google Form embed for Player 4 -->
       <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSedzCz31yhqFoT2Wzcf5vqOz9QhFmnwGli6psdoTR973MfM3g/viewform?usp=header"
               width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">
@@ -171,14 +156,12 @@
       </iframe> -->
     </section>
   </div>
-
   <!-- ======= ROTATE SECTIONS BY CALENDAR WEEK ======= -->
   <script>
     // Rotate sections 2–4 once per calendar week
     (function rotateSectionsByWeek() {
       const container = document.getElementById('rotating-sections');
       const sectionIds = ['player2', 'player3', 'player4'];
-
       const permutations = [
         ['player2', 'player3', 'player4'],
         ['player2', 'player4', 'player3'],
@@ -187,15 +170,13 @@
         ['player4', 'player2', 'player3'],
         ['player4', 'player3', 'player2']
       ];
-
       const baseline = new Date('2025-01-01T00:00:00Z');
       const now = new Date();
       const msPerWeek = 7 * 24 * 60 * 60 * 1000;
       const weeksSince = Math.floor((now - baseline) / msPerWeek);
-
       const permIndex = ((weeksSince % permutations.length) + permutations.length) % permutations.length;
       const orderThisWeek = permutations[permIndex];
-      
+
       const jumpList = document.getElementById('jump-links');
       if (jumpList) {
         const linkMap = {
@@ -203,19 +184,17 @@
           'player3': jumpList.querySelector('a[href="#player3"]')?.parentElement,
           'player4': jumpList.querySelector('a[href="#player4"]')?.parentElement
         };
-
         orderThisWeek.forEach(id => {
           const li = linkMap[id];
           if (li) jumpList.appendChild(li);
         });
       }
-
       const sections = {};
       sectionIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) sections[id] = el;
       });
-      
+
       let insertAfter = null;
       orderThisWeek.forEach(id => {
         const section = sections[id];
@@ -230,7 +209,6 @@
       });
     })();
   </script>
-
   <script>
     // ===== Shared GA helper: direct GA4 events from this page =====
     function sendGAEvent(eventName, params) {
@@ -238,7 +216,6 @@
         gtag('event', eventName, params);
       }
     }
-
     // ===== Player configuration data (URLs copied exactly from your code) =====
     const players = [
       {
@@ -354,51 +331,46 @@
         ]
       }
     ];
-
     // ===== Implementation for each player (full tracking on all) =====
     const allPlayerAudios = [];
-
     players.forEach(setupPlayer);
-
     function setupPlayer(player) {
       const audio = document.getElementById(player.audioElementId);
       const trackList = document.getElementById(player.listElementId);
       allPlayerAudios.push(audio);
-
       let currentTrackIndex = 0;
       let progressMilestonesSent = new Set();
       let lastReportedTime = 0;
       let lastKnownTime = 0;
       let trackCompleted = false;
-
+      // FIX: track_start is now emitted from the audio 'play' lifecycle (see the
+      // 'play' listener below), latched with this flag so it fires exactly once per
+      // listen — no matter how playback was started (custom button, native controls,
+      // spacebar, preloaded first track, or auto-advance).
+      let startSent = false;
       function renderTrackList() {
         trackList.innerHTML = '';
         player.tracks.forEach((track, index) => {
           const li = document.createElement('li');
           li.textContent = track.title;
           if (index === currentTrackIndex) li.classList.add('current');
-
           const playBtn = document.createElement('button');
           playBtn.textContent = 'Play';
           playBtn.addEventListener('click', () => {
             playTrack(index);
           });
-
           li.appendChild(playBtn);
           trackList.appendChild(li);
         });
       }
-
       function updateCurrentTrackHighlight() {
         [...trackList.children].forEach((li, index) => {
           li.classList.toggle('current', index === currentTrackIndex);
         });
       }
-
       function getCurrentTrack() {
         return player.tracks[currentTrackIndex];
       }
-
       function sendTrackStartEvent(track) {
         sendGAEvent('track_start', {
           track_id: track.id,
@@ -407,7 +379,6 @@
           player_title: player.title
         });
       }
-
       function sendTrackProgressEvent(track, percent) {
         sendGAEvent('track_progress', {
           track_id: track.id,
@@ -417,7 +388,6 @@
           progress_percent: percent
         });
       }
-
       function sendTrackCompleteEvent(track) {
         sendGAEvent('track_complete', {
           track_id: track.id,
@@ -426,17 +396,14 @@
           player_title: player.title
         });
       }
-
       function sendTrackListeningProgress(duration, isEnded = false) {
         const track = getCurrentTrack();
         if (!track || !duration || isNaN(duration)) return;
-
         const listenedSeconds = Math.round(lastKnownTime);
         const percent = Math.max(
           0,
           Math.min(100, Math.round((listenedSeconds / duration) * 100))
         );
-
         sendGAEvent('track_progress_detail', {
           track_id: track.id,
           track_name: track.title,
@@ -446,13 +413,11 @@
           listened_percent: percent,
           ended: isEnded
         });
-
         if ((isEnded || percent >= 90) && !trackCompleted) {
           trackCompleted = true;
           sendTrackCompleteEvent(track);
         }
       }
-
       function pauseOtherPlayers() {
         allPlayerAudios.forEach(a => {
           if (a !== audio && !a.paused) {
@@ -460,7 +425,6 @@
           }
         });
       }
-
       function playTrack(index) {
         currentTrackIndex = index;
         const track = getCurrentTrack();
@@ -468,15 +432,11 @@
         lastReportedTime = 0;
         lastKnownTime = 0;
         trackCompleted = false;
-
         pauseOtherPlayers();
-
         audio.pause();
         audio.currentTime = 0;
-
         audio.src = track.url;
         audio.load();
-
         const onCanPlay = () => {
           audio.removeEventListener('canplay', onCanPlay);
           audio.play().catch(err => {
@@ -484,73 +444,79 @@
           });
         };
         audio.addEventListener('canplay', onCanPlay);
-
         updateCurrentTrackHighlight();
-        sendTrackStartEvent(track);
+        // FIX: do NOT send track_start here. The 'play' listener below emits it once
+        // playback actually begins, so button plays, native-control plays, and
+        // auto-advance all count consistently (and only once).
+        startSent = false;
       }
-      
+
       audio.addEventListener('play', () => {
         pauseOtherPlayers();
+        // FIX: a play that begins at the very start of a track = a fresh listen.
+        // Re-arm the per-listen counters so native-control replays and the preloaded
+        // first track are counted too (these never go through playTrack()).
+        if (audio.currentTime < 1) {
+          progressMilestonesSent.clear();
+          lastReportedTime = 0;
+          trackCompleted = false;
+          startSent = false;
+        }
+        // Emit exactly one track_start per listen. Guarded by startSent so resuming
+        // after a pause does not double-count.
+        if (!startSent) {
+          startSent = true;
+          sendTrackStartEvent(getCurrentTrack());
+        }
       });
-      
+
       audio.addEventListener('timeupdate', () => {
         if (!audio.duration || isNaN(audio.duration)) return;
-
         const track = getCurrentTrack();
         const percent = (audio.currentTime / audio.duration) * 100;
         lastKnownTime = audio.currentTime;
-
         [25, 50, 75].forEach(milestone => {
           if (percent >= milestone && !progressMilestonesSent.has(milestone)) {
             progressMilestonesSent.add(milestone);
             sendTrackProgressEvent(track, milestone);
           }
         });
-
         if (audio.currentTime - lastReportedTime >= 5) {
           lastReportedTime = audio.currentTime;
           sendTrackListeningProgress(audio.duration, false);
         }
       });
-
       audio.addEventListener('pause', () => {
         if (!audio.duration || isNaN(audio.duration)) return;
         lastKnownTime = audio.currentTime;
         sendTrackListeningProgress(audio.duration, false);
       });
-
       audio.addEventListener('ended', () => {
         if (!audio.duration || isNaN(audio.duration)) return;
         lastKnownTime = audio.duration;
         sendTrackListeningProgress(audio.duration, true);
-
         if (currentTrackIndex < player.tracks.length - 1) {
           playTrack(currentTrackIndex + 1);
         }
       });
-
       renderTrackList();
       if (player.tracks.length > 0) {
         audio.src = player.tracks[0].url;
       }
     }
-
     // SPACEBAR TOGGLE – controls whichever audio is focused (or first as fallback)
     window.addEventListener('keydown', (event) => {
       const tag = event.target.tagName.toLowerCase();
       if (tag === 'input' || tag === 'textarea') return;
-
       if (event.code === 'Space' || event.keyCode === 32) {
         event.preventDefault();
         const active = document.activeElement;
         let audio = null;
-
         if (active && active.tagName.toLowerCase() === 'audio') {
           audio = active;
         } else {
           audio = document.querySelector('audio');
         }
-
         if (audio) {
           if (audio.paused) {
             audio.play();
@@ -562,8 +528,8 @@
     });
   </script>
   <p style="margin-top: 2rem; font-size: 0.9rem; color: #555;">
-    If you experience any technical difficulties with this site, or if something does not appear to be working as expected, 
-    please contact Sam Ostroff at 
+    If you experience any technical difficulties with this site, or if something does not appear to be working as expected,
+    please contact Sam Ostroff at
     <a href="mailto:samueljostroff@gmail.com">samueljostroff@gmail.com</a>.
   </p>
 </body>
